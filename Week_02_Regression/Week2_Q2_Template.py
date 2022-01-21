@@ -17,7 +17,9 @@ from matplotlib import pyplot as plt
 # %matplotlib inline
 
 class mr:
-
+  def __init__(self):
+        self.weight = 0
+        
   # Evaluates the gradient of cost function (J). Hint: You can use this to optimize w
   def grad(self,x,y,w):
     x = x.T
@@ -57,6 +59,7 @@ class mr:
       # Loop to update weights (w vector)
       # Also save cost at every step
 
+    self.weight = w
     return w, J_history
   
   # Estimate the price of a 4 bedrooms, 2.5 bathrooms, 2570 sq. feet area, 2 floors, 2005 yr. built
@@ -68,19 +71,8 @@ class mr:
     price = 0  # predict the price of the house
     ar = np.array([4,2.5,2570,2,2005])
     ar = np.divide(np.subtract(ar,mu),sigma)
-    # df = pd.read_csv('prob2data.csv')
-    # p = df['price']
-    # df = df[['bedrooms', 'bathrooms', 'sqft_living', 'floors', 'yr_built']]
-
-    # df = (df-df.mean())/df.std()
-    # df = df.to_numpy()
+    ar = np.append(1,ar)
+    price = np.dot(self.weight,ar)
+    error =  ((719000 - price)/719000)*100
     
-
-    # p = p.to_numpy()
-    # print(p)
-
-    # a,b = self.bgdMulti(df.T,p.T,np.random.rand(6),0.00001,5000)
-    
-    # ar = np.append(1,ar)
-    # price = np.dot(ar,a)
-    return price
+    return error

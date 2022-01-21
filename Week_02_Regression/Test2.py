@@ -11,3 +11,4 @@ df = df[['bedrooms', 'bathrooms', 'sqft_living', 'floors', 'yr_built']]
 
 
 print(mr_o.predict(df.mean(),df.std()))
+
