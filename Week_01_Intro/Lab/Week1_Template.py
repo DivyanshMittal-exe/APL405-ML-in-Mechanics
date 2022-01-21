@@ -30,6 +30,66 @@ class mohr():
     #cent_mid = 
     
     # Plot your FIGURE of Mohr circle
-    
 
-    return R_maj, R_min, R_mid
+    eigVals = eigvalsh(S)
+    # eigVals = np.sort(eigVals) 
+    s1 = eigVals[2]
+    s2 = eigVals[1]
+    s3 = eigVals[0]
+    
+    # print(s1,s2,s3)
+
+    r1 = (abs(s2-s3))/2
+    r2 = (abs(s1-s3))/2
+    r3 = (abs(s1-s2))/2
+        
+    R_list = [r1,r2,r3]
+    
+    R_list = np.sort(R_list)
+    
+    R_min = R_list[0]
+    R_mid = R_list[1]
+    R_maj = R_list[2]
+    
+    l1 = (s2+s3)/2
+    l2 = (s1+s3)/2
+    l3 = (s1+s2)/2
+
+    # R_maj = (s2-s3)/2
+    # R_min = (s1-s3)/2
+    # R_mid = (s1-s2)/2
+    
+    # cent_maj = (s2+s3)/2
+    # cent_min = (s1+s3)/2
+    # cent_mid = (s1+s2)/2
+
+    
+    # circle1 = plt.Circle((cent_maj, 0), R_maj, fill = False)
+    # circle2 = plt.Circle((cent_min, 0), R_min, fill = False)
+    # circle3 = plt.Circle((cent_mid, 0), R_mid, fill = False)
+    
+    circle1 = plt.Circle((l1, 0), r1, fill = False)
+    circle2 = plt.Circle((l2, 0), r2, fill = False)
+    circle3 = plt.Circle((l3, 0), r3, fill = False)
+    
+    plt.style.use('ggplot')
+    
+    fig, ax = plt.subplots()
+    ax.set_aspect(1)
+    
+    plt.title("Mohr's Circle")
+    plt.xlabel('\u03C3')
+    plt.ylabel('\u03C4')  
+    
+    ax.set_xlim((-200, 200))
+    ax.set_ylim((-200, 200))    
+    
+    ax.add_patch(circle1)
+    ax.add_patch(circle2)
+    ax.add_patch(circle3)
+
+    fig.savefig('Mohr.png')
+    
+    # print(R_maj)
+    
+    return R_maj,R_mid, R_min 
